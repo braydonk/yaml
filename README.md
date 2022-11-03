@@ -1,5 +1,14 @@
 # YAML support for the Go language
 
+FORK
+------------
+
+This is specifically a fork maintained by @braydonk particularly for
+the interests of [yamlfmt](https://www.github.com/google/yamlfmt).
+
+The following is the documentation as stated upstream. I will change it
+when necessary.
+
 Introduction
 ------------
 
