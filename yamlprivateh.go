@@ -1,17 +1,17 @@
-// 
+//
 // Copyright (c) 2011-2019 Canonical Ltd
 // Copyright (c) 2006-2010 Kirill Simonov
-// 
+//
 // Permission is hereby granted, free of charge, to any person obtaining a copy of
 // this software and associated documentation files (the "Software"), to deal in
 // the Software without restriction, including without limitation the rights to
 // use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
 // of the Software, and to permit persons to whom the Software is furnished to do
 // so, subject to the following conditions:
-// 
+//
 // The above copyright notice and this permission notice shall be included in all
 // copies or substantial portions of the Software.
-// 
+//
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 // FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -89,6 +89,7 @@ func is_printable(b []byte, i int) bool {
 		(b[i] > 0xC2 && b[i] < 0xED) ||
 		(b[i] == 0xED && b[i+1] < 0xA0) ||
 		(b[i] == 0xEE) ||
+		(b[i] == 0xF0) ||
 		(b[i] == 0xEF && // #xE000 <= . <= #xFFFD
 			!(b[i+1] == 0xBB && b[i+2] == 0xBF) && // && . != #xFEFF
 			!(b[i+1] == 0xBF && (b[i+2] == 0xBE || b[i+2] == 0xBF))))
@@ -137,8 +138,8 @@ func is_crlf(b []byte, i int) bool {
 func is_breakz(b []byte, i int) bool {
 	//return is_break(b, i) || is_z(b, i)
 	return (
-		// is_break:
-		b[i] == '\r' || // CR (#xD)
+	// is_break:
+	b[i] == '\r' || // CR (#xD)
 		b[i] == '\n' || // LF (#xA)
 		b[i] == 0xC2 && b[i+1] == 0x85 || // NEL (#x85)
 		b[i] == 0xE2 && b[i+1] == 0x80 && b[i+2] == 0xA8 || // LS (#x2028)
@@ -151,8 +152,8 @@ func is_breakz(b []byte, i int) bool {
 func is_spacez(b []byte, i int) bool {
 	//return is_space(b, i) || is_breakz(b, i)
 	return (
-		// is_space:
-		b[i] == ' ' ||
+	// is_space:
+	b[i] == ' ' ||
 		// is_breakz:
 		b[i] == '\r' || // CR (#xD)
 		b[i] == '\n' || // LF (#xA)
@@ -166,8 +167,8 @@ func is_spacez(b []byte, i int) bool {
 func is_blankz(b []byte, i int) bool {
 	//return is_blank(b, i) || is_breakz(b, i)
 	return (
-		// is_blank:
-		b[i] == ' ' || b[i] == '\t' ||
+	// is_blank:
+	b[i] == ' ' || b[i] == '\t' ||
 		// is_breakz:
 		b[i] == '\r' || // CR (#xD)
 		b[i] == '\n' || // LF (#xA)
