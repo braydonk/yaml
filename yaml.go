@@ -297,6 +297,12 @@ func (e *Encoder) SetLineBreakStyle(style LineBreakStyle) {
 	}
 }
 
+// SetExplicitDocumentStart forces the document start token
+// (---) to always be written.
+func (e *Encoder) SetExplicitDocumentStart() {
+	yaml_emitter_set_explicit_document_start(&e.encoder.emitter, true)
+}
+
 // Close closes the encoder by writing any remaining data.
 // It does not write a stream terminating string "...".
 func (e *Encoder) Close() (err error) {
