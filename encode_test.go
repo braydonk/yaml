@@ -17,7 +17,9 @@ package yaml_test
 
 import (
 	"bytes"
+	"errors"
 	"fmt"
+	"io"
 	"math"
 	"strconv"
 	"strings"
@@ -745,6 +747,21 @@ func (s *S) TestSortedOutput(c *C) {
 		}
 		last = index
 	}
+}
+
+func (s *S) TestExplicitDocumentStart(c *C) {
+	reader := bytes.NewReader([]byte{})
+	decoder := yaml.NewDecoder(reader)
+	var n yaml.Node
+	err := decoder.Decode(&n)
+	c.Assert(errors.Is(err, io.EOF), Equals, true)
+
+	var buf bytes.Buffer
+	enc := yaml.NewEncoder(&buf)
+	enc.SetExplicitDocumentStart()
+	err = enc.Encode(n)
+	c.Assert(err, IsNil)
+	c.Assert(strings.Contains(buf.String(), "---"), Equals, true)
 }
 
 func newTime(t time.Time) *time.Time {
