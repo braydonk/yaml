@@ -19,6 +19,7 @@ import (
 	"bytes"
 	"fmt"
 	"os"
+	"testing"
 
 	"io"
 	"strings"
@@ -2884,4 +2885,38 @@ func fprintCommentSet(out io.Writer, node *yaml.Node) {
 	if len(node.HeadComment)+len(node.LineComment)+len(node.FootComment) > 0 {
 		fmt.Fprintf(out, "%q / %q / %q", node.HeadComment, node.LineComment, node.FootComment)
 	}
+}
+
+// At this point I have given up using the upstream testing
+// stuff. I will switch to using it if I ever upstream this stuff,
+// but it's pretty unlikely it will get accepted.
+
+func TestBlockScalar(t *testing.T) {
+	// 	yml := `a: 1
+	// commands: >
+	//   [ -f /usr/local/bin/foo ] &&
+	//   echo skip install ||
+	//   go install github.com/foo/foo@latest
+	// `
+
+	yml := `when: >
+  ( _allow_disruption | default(False)
+    or do_upgrade | default(False)
+    or _init_cluster | default(False))
+  and not k8s_kubelet_disable_customizations | default(False)
+a: 1
+`
+	dec := yaml.NewDecoder(bytes.NewReader([]byte(yml)))
+	dec.SetScanBlockScalarAsLiteral(true)
+	var n yaml.Node
+	dec.Decode(&n)
+	var buf bytes.Buffer
+	enc := yaml.NewEncoder(&buf)
+	enc.SetAssumeBlockAsLiteral(true)
+	err := enc.Encode(&n)
+	if err != nil {
+		fmt.Println("what the fuck")
+		fmt.Println(err)
+	}
+	fmt.Printf("%s\n", buf.String())
 }

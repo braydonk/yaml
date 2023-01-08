@@ -2190,6 +2190,9 @@ func yaml_parser_scan_uri_escapes(parser *yaml_parser_t, directive bool, start_m
 
 // Scan a block scalar.
 func yaml_parser_scan_block_scalar(parser *yaml_parser_t, token *yaml_token_t, literal bool) bool {
+	// Scan as literal override
+	scan_as_literal := parser.scan_folded_as_literal || literal
+
 	// Eat the indicator '|' or '>'.
 	start_mark := parser.mark
 	skip(parser)
@@ -2318,7 +2321,7 @@ func yaml_parser_scan_block_scalar(parser *yaml_parser_t, token *yaml_token_t, l
 		trailing_blank = is_blank(parser.buffer, parser.buffer_pos)
 
 		// Check if we need to fold the leading line break.
-		if !literal && !leading_blank && !trailing_blank && len(leading_break) > 0 && leading_break[0] == '\n' {
+		if !scan_as_literal && !leading_blank && !trailing_blank && len(leading_break) > 0 && leading_break[0] == '\n' {
 			// Do we need to join the lines by space?
 			if len(trailing_breaks) == 0 {
 				s = append(s, ' ')
