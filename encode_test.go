@@ -758,7 +758,7 @@ func (s *S) TestExplicitDocumentStart(c *C) {
 
 	var buf bytes.Buffer
 	enc := yaml.NewEncoder(&buf)
-	enc.SetExplicitDocumentStart()
+	enc.SetExplicitDocumentStart(true)
 	err = enc.Encode(n)
 	c.Assert(err, IsNil)
 	c.Assert(strings.Contains(buf.String(), "---"), Equals, true)
