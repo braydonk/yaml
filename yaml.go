@@ -303,8 +303,8 @@ func (e *Encoder) SetLineBreakStyle(style LineBreakStyle) {
 
 // SetExplicitDocumentStart forces the document start token
 // (---) to always be written.
-func (e *Encoder) SetExplicitDocumentStart() {
-	yaml_emitter_set_explicit_document_start(&e.encoder.emitter, true)
+func (e *Encoder) SetExplicitDocumentStart(documentStart bool) {
+	yaml_emitter_set_explicit_document_start(&e.encoder.emitter, documentStart)
 }
 
 func (e *Encoder) SetAssumeBlockAsLiteral(assumeLiteralBlock bool) {
