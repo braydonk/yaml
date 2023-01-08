@@ -2892,19 +2892,10 @@ func fprintCommentSet(out io.Writer, node *yaml.Node) {
 // but it's pretty unlikely it will get accepted.
 
 func TestBlockScalar(t *testing.T) {
-	// 	yml := `a: 1
-	// commands: >
-	//   [ -f /usr/local/bin/foo ] &&
-	//   echo skip install ||
-	//   go install github.com/foo/foo@latest
-	// `
-
-	yml := `when: >
-  ( _allow_disruption | default(False)
-    or do_upgrade | default(False)
-    or _init_cluster | default(False))
-  and not k8s_kubelet_disable_customizations | default(False)
-a: 1
+	yml := `commands: >
+    [ -f "/usr/local/bin/foo" ] &&
+    echo "skip install" ||
+    go install github.com/foo/foo@latest
 `
 	dec := yaml.NewDecoder(bytes.NewReader([]byte(yml)))
 	dec.SetScanBlockScalarAsLiteral(true)
@@ -2915,8 +2906,10 @@ a: 1
 	enc.SetAssumeBlockAsLiteral(true)
 	err := enc.Encode(&n)
 	if err != nil {
-		fmt.Println("what the fuck")
-		fmt.Println(err)
+		t.Fatal(err)
 	}
-	fmt.Printf("%s\n", buf.String())
+	resultStr := buf.String()
+	if resultStr != yml {
+		t.Fatalf("expected result string to match input:\nexpected:\n%s\nresult:\n%s\n", yml, resultStr)
+	}
 }
