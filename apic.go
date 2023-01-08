@@ -74,6 +74,10 @@ func yaml_reader_read_handler(parser *yaml_parser_t, buffer []byte) (n int, err 
 	return parser.input_reader.Read(buffer)
 }
 
+func yaml_parser_set_scan_folded_as_literal(parser *yaml_parser_t, scan_literal bool) {
+	parser.scan_folded_as_literal = scan_literal
+}
+
 // Set a string input.
 func yaml_parser_set_input_string(parser *yaml_parser_t, input []byte) {
 	if parser.read_handler != nil {
@@ -190,6 +194,10 @@ func yaml_emitter_set_break(emitter *yaml_emitter_t, line_break yaml_break_t) {
 // Set explicit document start.
 func yaml_emitter_set_explicit_document_start(emitter *yaml_emitter_t, document_start bool) {
 	emitter.explicit_document_start = document_start
+}
+
+func yaml_emitter_set_assume_folded_as_literal(emitter *yaml_emitter_t, folded_as_literal bool) {
+	emitter.assume_folded_as_literal = folded_as_literal
 }
 
 ///*

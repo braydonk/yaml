@@ -109,6 +109,10 @@ func (dec *Decoder) KnownFields(enable bool) {
 	dec.knownFields = enable
 }
 
+func (dec *Decoder) SetScanBlockScalarAsLiteral(scanLiteral bool) {
+	yaml_parser_set_scan_folded_as_literal(&dec.parser.parser, scanLiteral)
+}
+
 // Decode reads the next YAML-encoded value from its input
 // and stores it in the value pointed to by v.
 //
@@ -301,6 +305,10 @@ func (e *Encoder) SetLineBreakStyle(style LineBreakStyle) {
 // (---) to always be written.
 func (e *Encoder) SetExplicitDocumentStart() {
 	yaml_emitter_set_explicit_document_start(&e.encoder.emitter, true)
+}
+
+func (e *Encoder) SetAssumeBlockAsLiteral(assumeLiteralBlock bool) {
+	yaml_emitter_set_assume_folded_as_literal(&e.encoder.emitter, assumeLiteralBlock)
 }
 
 // Close closes the encoder by writing any remaining data.
