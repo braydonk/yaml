@@ -196,8 +196,14 @@ func yaml_emitter_set_explicit_document_start(emitter *yaml_emitter_t, document_
 	emitter.explicit_document_start = document_start
 }
 
+// Set assume folded as literal.
 func yaml_emitter_set_assume_folded_as_literal(emitter *yaml_emitter_t, folded_as_literal bool) {
 	emitter.assume_folded_as_literal = folded_as_literal
+}
+
+// Set indentless block sequence.
+func yaml_emitter_set_indentless_block_sequence(emitter *yaml_emitter_t, indentless_block_sequence bool) {
+	emitter.indentless_block_sequence = indentless_block_sequence
 }
 
 ///*
