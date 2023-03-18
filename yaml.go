@@ -307,8 +307,15 @@ func (e *Encoder) SetExplicitDocumentStart(documentStart bool) {
 	yaml_emitter_set_explicit_document_start(&e.encoder.emitter, documentStart)
 }
 
+// SetAssumeBlockAsLiteral is a workaround to allow block literals
+// to retain their scanned form in the resulting marshalled document.
 func (e *Encoder) SetAssumeBlockAsLiteral(assumeLiteralBlock bool) {
 	yaml_emitter_set_assume_folded_as_literal(&e.encoder.emitter, assumeLiteralBlock)
+}
+
+// SetIndentlessBlockSequence forces block sequence items not to be indented.
+func (e *Encoder) SetIndentlessBlockSequence(indentlessBlockSequence bool) {
+	yaml_emitter_set_indentless_block_sequence(&e.encoder.emitter, indentlessBlockSequence)
 }
 
 // Close closes the encoder by writing any remaining data.
