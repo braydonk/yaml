@@ -29,12 +29,13 @@ import (
 )
 
 type encoder struct {
-	emitter  yaml_emitter_t
-	event    yaml_event_t
-	out      []byte
-	flow     bool
-	indent   int
-	doneInit bool
+	emitter         yaml_emitter_t
+	event           yaml_event_t
+	out             []byte
+	flow            bool
+	indent          int
+	doneInit        bool
+	optDropMergeTag bool
 }
 
 func newEncoder() *encoder {
@@ -466,6 +467,10 @@ func (e *encoder) node(node *Node, tail string) {
 				tag = ""
 			}
 		}
+	}
+
+	if tag == mergeTag && e.optDropMergeTag {
+		tag = ""
 	}
 
 	switch node.Kind {

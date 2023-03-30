@@ -318,6 +318,11 @@ func (e *Encoder) SetIndentlessBlockSequence(indentlessBlockSequence bool) {
 	yaml_emitter_set_indentless_block_sequence(&e.encoder.emitter, indentlessBlockSequence)
 }
 
+// SetDropMergeTag sets optDropMergeTag on the encoder.
+func (e *Encoder) SetDropMergeTag(dropMergeTag bool) {
+	e.encoder.optDropMergeTag = dropMergeTag
+}
+
 // Close closes the encoder by writing any remaining data.
 // It does not write a stream terminating string "...".
 func (e *Encoder) Close() (err error) {

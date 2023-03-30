@@ -51,3 +51,14 @@ func TestBlockScalar(t *testing.T) {
 		},
 	}.Run(t)
 }
+
+func TestDropMergeTag(t *testing.T) {
+	formatTestCase{
+		name:             "drop merge tag",
+		folder:           "drop_merge_tag",
+		configureDecoder: noopDecoder,
+		configureEncoder: func(enc *yaml.Encoder) {
+			enc.SetDropMergeTag(true)
+		},
+	}.Run(t)
+}
