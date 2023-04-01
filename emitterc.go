@@ -1983,6 +1983,14 @@ func yaml_emitter_write_folded_scalar(emitter *yaml_emitter_t, value []byte) boo
 func yaml_emitter_write_comment(emitter *yaml_emitter_t, comment []byte) bool {
 	breaks := false
 	pound := false
+
+	// [Go] Start by adding any additional padding to the line comment.
+	for i := 0; i < emitter.pad_line_comment; i++ {
+		if !put(emitter, ' ') {
+			return false
+		}
+	}
+
 	for i := 0; i < len(comment); {
 		if is_break(comment, i) {
 			if !write_break(emitter, comment, &i) {

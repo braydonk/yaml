@@ -323,6 +323,11 @@ func (e *Encoder) SetDropMergeTag(dropMergeTag bool) {
 	e.encoder.optDropMergeTag = dropMergeTag
 }
 
+// SetPadLineComment sets the option to add padding to a LineComment spacing.
+func (e *Encoder) SetPadLineComment(padding int) {
+	yaml_emitter_set_pad_line_comment(&e.encoder.emitter, padding)
+}
+
 // Close closes the encoder by writing any remaining data.
 // It does not write a stream terminating string "...".
 func (e *Encoder) Close() (err error) {
