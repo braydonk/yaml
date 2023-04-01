@@ -323,6 +323,11 @@ func (e *Encoder) SetDropMergeTag(dropMergeTag bool) {
 	e.encoder.optDropMergeTag = dropMergeTag
 }
 
+// SetIndentLineComments changes the number of indentation spaces before line comments.
+func (e *Encoder) SetIndentLineComments(indentLineComments int) {
+	yaml_emitter_set_indent_line_comments(&e.encoder.emitter, indentLineComments)
+}
+
 // Close closes the encoder by writing any remaining data.
 // It does not write a stream terminating string "...".
 func (e *Encoder) Close() (err error) {
