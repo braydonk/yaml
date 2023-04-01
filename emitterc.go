@@ -1118,7 +1118,7 @@ func yaml_emitter_process_head_comment(emitter *yaml_emitter_t) bool {
 		if !yaml_emitter_write_indent(emitter) {
 			return false
 		}
-		if !yaml_emitter_write_comment(emitter, emitter.tail_comment) {
+		if !yaml_emitter_write_comment(emitter, emitter.tail_comment, 0) {
 			return false
 		}
 		emitter.tail_comment = emitter.tail_comment[:0]
@@ -1134,7 +1134,7 @@ func yaml_emitter_process_head_comment(emitter *yaml_emitter_t) bool {
 	if !yaml_emitter_write_indent(emitter) {
 		return false
 	}
-	if !yaml_emitter_write_comment(emitter, emitter.head_comment) {
+	if !yaml_emitter_write_comment(emitter, emitter.head_comment, 0) {
 		return false
 	}
 	emitter.head_comment = emitter.head_comment[:0]
@@ -1151,7 +1151,7 @@ func yaml_emitter_process_line_comment(emitter *yaml_emitter_t) bool {
 			return false
 		}
 	}
-	if !yaml_emitter_write_comment(emitter, emitter.line_comment) {
+	if !yaml_emitter_write_comment(emitter, emitter.line_comment, emitter.pad_line_comment) {
 		return false
 	}
 	emitter.line_comment = emitter.line_comment[:0]
@@ -1166,7 +1166,7 @@ func yaml_emitter_process_foot_comment(emitter *yaml_emitter_t) bool {
 	if !yaml_emitter_write_indent(emitter) {
 		return false
 	}
-	if !yaml_emitter_write_comment(emitter, emitter.foot_comment) {
+	if !yaml_emitter_write_comment(emitter, emitter.foot_comment, 0) {
 		return false
 	}
 	emitter.foot_comment = emitter.foot_comment[:0]
@@ -1980,12 +1980,12 @@ func yaml_emitter_write_folded_scalar(emitter *yaml_emitter_t, value []byte) boo
 	return true
 }
 
-func yaml_emitter_write_comment(emitter *yaml_emitter_t, comment []byte) bool {
+func yaml_emitter_write_comment(emitter *yaml_emitter_t, comment []byte, padding int) bool {
 	breaks := false
 	pound := false
 
 	// [Go] Start by adding any additional padding to the line comment.
-	for i := 0; i < emitter.pad_line_comment; i++ {
+	for i := 0; i < padding; i++ {
 		if !put(emitter, ' ') {
 			return false
 		}
