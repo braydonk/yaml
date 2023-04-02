@@ -206,6 +206,14 @@ func yaml_emitter_set_indentless_block_sequence(emitter *yaml_emitter_t, indentl
 	emitter.indentless_block_sequence = indentless_block_sequence
 }
 
+// Set pad line comments.
+func yaml_emitter_set_pad_line_comments(emitter *yaml_emitter_t, pad_line_comments int) {
+	if pad_line_comments < 0 {
+		pad_line_comments = 1
+	}
+	emitter.pad_line_comments = pad_line_comments
+}
+
 ///*
 // * Destroy a token object.
 // */

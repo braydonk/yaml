@@ -62,3 +62,14 @@ func TestDropMergeTag(t *testing.T) {
 		},
 	}.Run(t)
 }
+
+func TestPadLineComments(t *testing.T) {
+	formatTestCase{
+		name:             "pad line comments",
+		folder:           "pad_line_comments",
+		configureDecoder: noopDecoder,
+		configureEncoder: func(enc *yaml.Encoder) {
+			enc.SetPadLineComments(2)
+		},
+	}.Run(t)
+}
