@@ -6,6 +6,13 @@ FORK
 This is specifically a fork maintained by @braydonk particularly for
 the interests of [yamlfmt](https://www.github.com/google/yamlfmt).
 
+The focus of the fixes to this repo are specifically on the workflow of
+Unmarshalling to `yaml.Node` and immediately encoding. Many of the fixes
+will likely work for any workflow through the library and can potentially
+be adopted, but there may be cases where it won't.
+This repo also adds tests to `formattest` which are test cases focused on
+this workflow.
+
 The following is the documentation as stated upstream. I will change it
 when necessary.
 
