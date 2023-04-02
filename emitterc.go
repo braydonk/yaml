@@ -1148,7 +1148,7 @@ func yaml_emitter_process_line_comment(emitter *yaml_emitter_t) bool {
 	}
 	if !emitter.whitespace {
 		// Insert as many spaces before the line comment as requested.
-		for i := 0; i < emitter.indent_line_comments; i++ {
+		for i := 0; i < emitter.pad_line_comments; i++ {
 			if !put(emitter, ' ') {
 				return false
 			}

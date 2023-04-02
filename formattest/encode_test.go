@@ -63,13 +63,13 @@ func TestDropMergeTag(t *testing.T) {
 	}.Run(t)
 }
 
-func TestIndentLineComments(t *testing.T) {
+func TestPadLineComments(t *testing.T) {
 	formatTestCase{
-		name:             "indent line comments",
-		folder:           "indent_line_comments",
+		name:             "pad line comments",
+		folder:           "pad_line_comments",
 		configureDecoder: noopDecoder,
 		configureEncoder: func(enc *yaml.Encoder) {
-			enc.SetIndentLineComments(2)
+			enc.SetPadLineComments(2)
 		},
 	}.Run(t)
 }

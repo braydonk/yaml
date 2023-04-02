@@ -41,7 +41,7 @@ type encoder struct {
 func newEncoder() *encoder {
 	e := &encoder{}
 	yaml_emitter_initialize(&e.emitter)
-	yaml_emitter_set_indent_line_comments(&e.emitter, 1)
+	yaml_emitter_set_pad_line_comments(&e.emitter, 1)
 	yaml_emitter_set_output_string(&e.emitter, &e.out)
 	yaml_emitter_set_unicode(&e.emitter, true)
 	return e
@@ -50,7 +50,7 @@ func newEncoder() *encoder {
 func newEncoderWithWriter(w io.Writer) *encoder {
 	e := &encoder{}
 	yaml_emitter_initialize(&e.emitter)
-	yaml_emitter_set_indent_line_comments(&e.emitter, 1)
+	yaml_emitter_set_pad_line_comments(&e.emitter, 1)
 	yaml_emitter_set_output_writer(&e.emitter, w)
 	yaml_emitter_set_unicode(&e.emitter, true)
 	return e

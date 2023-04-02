@@ -206,12 +206,12 @@ func yaml_emitter_set_indentless_block_sequence(emitter *yaml_emitter_t, indentl
 	emitter.indentless_block_sequence = indentless_block_sequence
 }
 
-// Set indent line comments.
-func yaml_emitter_set_indent_line_comments(emitter *yaml_emitter_t, indent_line_comments int) {
-	if indent_line_comments < 0 {
-		indent_line_comments = 1
+// Set pad line comments.
+func yaml_emitter_set_pad_line_comments(emitter *yaml_emitter_t, pad_line_comments int) {
+	if pad_line_comments < 0 {
+		pad_line_comments = 1
 	}
-	emitter.indent_line_comments = indent_line_comments
+	emitter.pad_line_comments = pad_line_comments
 }
 
 ///*
