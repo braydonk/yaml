@@ -241,6 +241,10 @@ func yaml_emitter_increase_indent(emitter *yaml_emitter_t, flow, indentless bool
 			// Everything else aligns to the chosen indentation.
 			emitter.indent = emitter.best_indent * ((emitter.indent + emitter.best_indent) / emitter.best_indent)
 		}
+	} else {
+		if emitter.states[len(emitter.states)-1] == yaml_EMIT_BLOCK_SEQUENCE_ITEM_STATE {
+			emitter.indent += 2
+		}
 	}
 	return true
 }
