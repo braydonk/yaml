@@ -279,6 +279,15 @@ func (e *Encoder) SetIndent(spaces int) {
 	e.encoder.indent = spaces
 }
 
+// SetArrayIndent changes the used indentation specifically for
+// block sequences.
+func (e *Encoder) SetArrayIndent(spaces int) {
+	if spaces < 0 {
+		panic("yaml: cannot indent to a negative number of spaces")
+	}
+	e.encoder.array_indent = spaces
+}
+
 // SetWidth sets the intended line length.
 func (e *Encoder) SetWidth(width int) {
 	yaml_emitter_set_width(&e.encoder.emitter, width)

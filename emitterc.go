@@ -237,6 +237,9 @@ func yaml_emitter_increase_indent(emitter *yaml_emitter_t, flow, indentless bool
 		// [Go] This was changed so that indentations are more regular.
 		if emitter.states[len(emitter.states)-1] == yaml_EMIT_BLOCK_SEQUENCE_ITEM_STATE {
 			emitter.indent += 2
+		} else if emitter.state == yaml_EMIT_BLOCK_SEQUENCE_FIRST_ITEM_STATE {
+			// [Go] Arrays align to the chosen indentation.
+			emitter.indent = emitter.best_array_indent * ((emitter.indent + emitter.best_array_indent) / emitter.best_array_indent)
 		} else {
 			// Everything else aligns to the chosen indentation.
 			emitter.indent = emitter.best_indent * ((emitter.indent + emitter.best_indent) / emitter.best_indent)

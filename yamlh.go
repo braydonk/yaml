@@ -732,6 +732,7 @@ type yaml_emitter_t struct {
 
 	canonical                 bool         // If the output is in the canonical style?
 	best_indent               int          // The number of indentation spaces.
+	best_array_indent         int          // The number of indentation spaces to use for arrays
 	best_width                int          // The preferred width of the output lines.
 	unicode                   bool         // Allow unescaped non-ASCII characters?
 	line_break                yaml_break_t // The preferred line break.

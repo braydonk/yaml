@@ -73,3 +73,15 @@ func TestPadLineComments(t *testing.T) {
 		},
 	}.Run(t)
 }
+
+func TestAltArrayIndent(t *testing.T) {
+	formatTestCase{
+		name:             "alternate array indent",
+		folder:           "alt_array_indent",
+		configureDecoder: noopDecoder,
+		configureEncoder: func(enc *yaml.Encoder) {
+			enc.SetIndent(4)
+			enc.SetArrayIndent(1)
+		},
+	}.Run(t)
+}
