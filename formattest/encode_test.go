@@ -85,3 +85,15 @@ func TestAltArrayIndent(t *testing.T) {
 		},
 	}.Run(t)
 }
+
+func TestAltArrayIndentRoot(t *testing.T) {
+	formatTestCase{
+		name:             "alternate array indent (root)",
+		folder:           "alt_array_indent_root",
+		configureDecoder: noopDecoder,
+		configureEncoder: func(enc *yaml.Encoder) {
+			enc.SetIndent(4)
+			enc.SetArrayIndent(1)
+		},
+	}.Run(t)
+}

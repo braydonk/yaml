@@ -3,3 +3,7 @@ a:
 c:
  - array
  - values
+d:
+    e:
+     - abc
+     - def
