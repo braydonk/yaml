@@ -228,7 +228,9 @@ func yaml_emitter_append_tag_directive(emitter *yaml_emitter_t, value *yaml_tag_
 func yaml_emitter_increase_indent(emitter *yaml_emitter_t, flow, indentless bool) bool {
 	emitter.indents = append(emitter.indents, emitter.indent)
 	if emitter.indent < 0 {
-		if flow {
+		if emitter.indent_root_array && emitter.state == yaml_EMIT_BLOCK_SEQUENCE_FIRST_ITEM_STATE {
+			emitter.indent = emitter.best_array_indent
+		} else if flow {
 			emitter.indent = emitter.best_indent
 		} else {
 			emitter.indent = 0

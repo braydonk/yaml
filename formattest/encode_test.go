@@ -93,7 +93,8 @@ func TestAltArrayIndentRoot(t *testing.T) {
 		configureDecoder: noopDecoder,
 		configureEncoder: func(enc *yaml.Encoder) {
 			enc.SetIndent(4)
-			enc.SetArrayIndent(1)
+			enc.SetArrayIndent(2)
+			enc.SetIndentRootArray(true)
 		},
 	}.Run(t)
 }

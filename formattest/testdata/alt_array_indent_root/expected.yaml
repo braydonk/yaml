@@ -1,9 +1,8 @@
- - a:
-      b: 1
- - c:
-    - array
-    - values
- - d:
-      e:
-       - abc
-       - def
+  - a:
+        b: 1
+  - c:
+    d:
+  - e:
+        f:
+          - abc
+          - def
