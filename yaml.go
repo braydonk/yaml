@@ -288,6 +288,12 @@ func (e *Encoder) SetArrayIndent(spaces int) {
 	e.encoder.array_indent = spaces
 }
 
+// SetIndentRootArray changes whether arrays at the root of the document
+// should be indented as if they were children.
+func (e *Encoder) SetIndentRootArray(indent_root_array bool) {
+	e.encoder.indent_root_array = indent_root_array
+}
+
 // SetWidth sets the intended line length.
 func (e *Encoder) SetWidth(width int) {
 	yaml_emitter_set_width(&e.encoder.emitter, width)

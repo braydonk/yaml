@@ -731,14 +731,15 @@ type yaml_emitter_t struct {
 	// Emitter stuff
 
 	canonical                 bool         // If the output is in the canonical style?
+	best_width                int          // The preferred width of the output lines.
 	best_indent               int          // The number of indentation spaces.
 	best_array_indent         int          // The number of indentation spaces to use for arrays
-	best_width                int          // The preferred width of the output lines.
+	indent_root_array         bool         // Indent a root-level array as if it were a child?
+	indentless_block_sequence bool         // Do not indent block sequences
 	unicode                   bool         // Allow unescaped non-ASCII characters?
 	line_break                yaml_break_t // The preferred line break.
 	explicit_document_start   bool         // Force an explicit document start
 	assume_folded_as_literal  bool         // Assume blocks were scanned as literals
-	indentless_block_sequence bool         // Do not indent block sequences
 	pad_line_comments         int          // The number of spaces to insert before line comments.
 
 	state  yaml_emitter_state_t   // The current emitter state.
