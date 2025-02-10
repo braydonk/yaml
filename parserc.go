@@ -337,7 +337,11 @@ func yaml_parser_parse_document_start(parser *yaml_parser_t, event *yaml_event_t
 			version_directive: version_directive,
 			tag_directives:    tag_directives,
 			implicit:          false,
+			
+			// braydonk: Fixing head comments for explicit document start
+			head_comment: parser.head_comment,
 		}
+		parser.head_comment = []byte{}
 		skip_token(parser)
 
 	} else {

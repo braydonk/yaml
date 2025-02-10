@@ -442,6 +442,16 @@ func yaml_emitter_emit_document_start(emitter *yaml_emitter_t, event *yaml_event
 		if yaml_emitter_check_empty_document(emitter) {
 			implicit = false
 		}
+
+		// braydonk: This puts head comments above the document
+		// start token, rather than the previous behaviour which
+		// put them after the document start for some reason.
+		if len(emitter.head_comment) > 0 {
+			if !yaml_emitter_process_head_comment(emitter) {
+				return false
+			}
+		}
+
 		if !implicit {
 			if !yaml_emitter_write_indent(emitter) {
 				return false
@@ -456,14 +466,20 @@ func yaml_emitter_emit_document_start(emitter *yaml_emitter_t, event *yaml_event
 			}
 		}
 
-		if len(emitter.head_comment) > 0 {
-			if !yaml_emitter_process_head_comment(emitter) {
-				return false
+		// braydonk: Yes I know leaving commented out code in source control
+		// is cringe but if I am in a scenario where my fix breaks something
+		// unexpectedly and I gotta hotfix it back I need to make it easy to
+		// remember what the original setup was.
+		/*
+			if len(emitter.head_comment) > 0 {
+				if !yaml_emitter_process_head_comment(emitter) {
+					return false
+				}
+				if !put_break(emitter) {
+					return false
+				}
 			}
-			if !put_break(emitter) {
-				return false
-			}
-		}
+		*/
 
 		emitter.state = yaml_EMIT_DOCUMENT_CONTENT_STATE
 		return true

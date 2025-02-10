@@ -98,3 +98,25 @@ func TestAltArrayIndentRoot(t *testing.T) {
 		},
 	}.Run(t)
 }
+
+func TestFrontMatter(t *testing.T) {
+	formatTestCase{
+		name:             "frontmatter",
+		folder:           "frontmatter_comments",
+		configureDecoder: noopDecoder,
+		configureEncoder: func(enc *yaml.Encoder) {
+			enc.SetExplicitDocumentStart(true)
+		},
+	}.Run(t)
+}
+
+func TestImplicitDocumentStartComments(t *testing.T) {
+	formatTestCase{
+		name:             "comment implicit document start",
+		folder:           "comment_implicit_document_start",
+		configureDecoder: noopDecoder,
+		configureEncoder: func(enc *yaml.Encoder) {
+			enc.SetExplicitDocumentStart(false)
+		},
+	}.Run(t)
+}
